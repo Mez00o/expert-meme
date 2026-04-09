@@ -20,33 +20,39 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">FIVEM <span style="color: #ff4444;">PANEL</span></a>
+        <a class="navbar-brand fw-bold" href="index.html">FIVEM <span style="color: #ff4444;">PANEL</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav ms-auto align-items-center">
-                <a class="nav-link px-3" href="#">Home</a>
+                <a class="nav-link px-3" href="index.html">Home</a>
                 <a class="nav-link px-3" href="#about">About</a>
                 <a class="nav-link px-3" href="#rules">Rules</a>
                 
                 <a class="nav-link ms-lg-3" href="#applications">
-                    <span class="badge rounded-pill bg-primary px-4 py-2" style="font-size: 0.9rem; background-color: #ff4444 !important;">
+                    <span class="badge rounded-pill bg-danger px-4 py-2" style="font-size: 0.9rem;">
                         APPLICATIONS
                     </span>
                 </a>
 
-                <div class="ms-lg-4 mt-3 mt-lg-0" id="auth-section">
-                    <a href="#" class="btn btn-outline-light d-flex align-items-center gap-2" style="border-radius: 50px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="20" alt="Discord">
-                        Login with Discord
+                <div class="nav-item dropdown ms-lg-4">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="profileDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=ff4444&color=fff" class="rounded-circle" width="35" alt="Profile">
+                        <span>Admin User</span>
                     </a>
-
-                    </div>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="profileDrop">
+                        <li><a class="dropdown-item fw-bold text-info" href="admin.html">🛠 Admin Panel</a></li>
+                        <li><a class="dropdown-item" href="#">My Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</nav>    
+</nav>
+
     <header class="hero-section text-center">
         <div class="container">
             <h1 class="display-3 fw-bold">Welcome to the City</h1>
