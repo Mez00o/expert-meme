@@ -2,59 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Applications | FiveM</title>
+    <title>New Haven | Applications</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #1a1a1a; color: white; }
-        .app-card { background-color: #252525; border: 1px solid #333; padding: 20px; border-radius: 10px; }
-        .modal-content { background-color: #252525; color: white; border: 1px solid #ff4444; }
+        :root { --nh-blue: #00d4ff; --nh-dark: #0a0b0c; }
+        body { background-color: var(--nh-dark); color: white; font-family: 'Inter', sans-serif; }
+        .app-card { background: #14171a; border-left: 5px solid var(--nh-blue); padding: 30px; border-radius: 8px; margin-bottom: 25px; transition: 0.3s; }
+        .app-card:hover { transform: translateY(-5px); background: #1a1e22; }
+        .status-tag { padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
+        .bg-pending { background: #ffc107; color: black; }
+        .bg-accepted { background: #198754; color: white; }
+        .bg-denied { background: #dc3545; color: white; }
     </style>
 </head>
 <body>
+
     <div class="container py-5">
-        <div class="d-flex justify-content-between mb-5">
-            <h2>Available <span class="text-danger">Positions</span></h2>
-            <a href="index.html" class="btn btn-outline-light">Back</a>
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="fw-bold">Department <span style="color: var(--nh-blue)">Recruitment</span></h1>
+            <a href="index.html" class="btn btn-outline-light btn-sm">Home</a>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
                 <div class="app-card">
-                    <h4>Staff Application</h4>
-                    <p class="text-muted">Help us grow the community.</p>
-                    <button class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#appModal">Open Form</button>
+                    <h4>Police Dept</h4>
+                    <p class="text-secondary small">Keep the streets of New Haven safe.</p>
+                    <button class="btn btn-info w-100 fw-bold" onclick="alert('Form Opening...')">APPLY</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="app-card" style="border-left-color: #ff4444;">
+                    <h4>EMS / Fire</h4>
+                    <p class="text-secondary small">Save lives in emergency situations.</p>
+                    <button class="btn btn-danger w-100 fw-bold">APPLY</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="app-card" style="border-left-color: #ffffff;">
+                    <h4>Staff Team</h4>
+                    <p class="text-secondary small">Moderate and support the city.</p>
+                    <button class="btn btn-light w-100 fw-bold">APPLY</button>
                 </div>
             </div>
         </div>
 
-        <h3 class="mt-5">My Status</h3>
-        <div id="user-status" class="alert alert-secondary mt-3">You have no active applications.</div>
-    </div>
-
-    <div class="modal fade" id="appModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header"><h5>Staff Application</h5></div>
-                <div class="modal-body">
-                    <label>Why do you want to join?</label>
-                    <textarea id="appText" class="form-control bg-dark text-white border-secondary mb-3"></textarea>
-                    <button class="btn btn-danger w-100" onclick="submitApp()">Submit to Admin</button>
-                </div>
+        <h3 class="mb-4">Submission Status</h3>
+        <div class="p-4 rounded border border-secondary bg-dark bg-opacity-25">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>Staff Application - Submitted 2026-04-09</span>
+                <span class="status-tag bg-pending">Pending</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span>LSPD Application - Submitted 2026-03-20</span>
+                <span class="status-tag bg-accepted">Accepted</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <span>EMS Application - Submitted 2026-03-15</span>
+                <span class="status-tag bg-denied">Denied</span>
             </div>
         </div>
     </div>
 
-    <script>
-        function submitApp() {
-            let text = document.getElementById('appText').value;
-            if(text) {
-                document.getElementById('user-status').className = "alert alert-warning";
-                document.getElementById('user-status').innerText = "Status: PENDING (Staff Application)";
-                alert("Submitted successfully!");
-                bootstrap.Modal.getInstance(document.getElementById('appModal')).hide();
-            }
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
