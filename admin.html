@@ -8,128 +8,131 @@
         :root { --nh-blue: #00d4ff; --nh-bg: #0c0e10; }
         body { background-color: var(--nh-bg); color: #cfd4d9; font-family: 'Segoe UI', sans-serif; }
         
-        .sidebar { background: #14171a; min-height: 100vh; border-right: 1px solid #252a2f; }
-        .nav-link { color: #8a9199; padding: 12px 20px; border-radius: 6px; margin-bottom: 5px; cursor: pointer; transition: 0.2s; }
+        .sidebar { background: #14171a; min-height: 100vh; border-right: 1px solid #252a2f; position: fixed; width: 240px; }
+        .main-content { margin-left: 240px; padding: 40px; }
+        
+        .nav-link { color: #8a9199; padding: 12px 20px; border-radius: 6px; margin-bottom: 5px; cursor: pointer; }
         .nav-link:hover, .nav-link.active { background: rgba(0, 212, 255, 0.1); color: var(--nh-blue); }
         
         .content-card { background: #1a1e22; border: 1px solid #2d3339; border-radius: 10px; padding: 25px; margin-bottom: 25px; }
         .form-control { background: #08090a; border: 1px solid #3d444b; color: white; }
-        .form-control:focus { border-color: var(--nh-blue); box-shadow: none; color: white; background: #000; }
+        .form-control:focus { border-color: var(--nh-blue); box-shadow: none; color: white; }
         
-        .stat-box { text-align: center; border-bottom: 3px solid var(--nh-blue); padding-bottom: 15px; }
+        .stat-box { text-align: center; border-bottom: 3px solid var(--nh-blue); }
     </style>
 </head>
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 sidebar p-4">
-            <h4 class="fw-bold mb-5" style="color: var(--nh-blue)">NH PANEL</h4>
-            <ul class="nav flex-column">
-                <li class="nav-link active" onclick="switchTab('dash')">Dashboard</li>
-                <li class="nav-link" onclick="switchTab('config')">Site Config</li>
-                <li class="nav-link" onclick="switchTab('apps')">Applications</li>
-                <li class="nav-link" onclick="switchTab('forms')">Forms Builder</li>
-                <li class="nav-item mt-5 px-3 small text-muted">System</li>
-                <li class="nav-link text-danger" onclick="window.location.href='index.html'">View Website</li>
-            </ul>
-        </nav>
+    <nav class="sidebar p-4">
+        <h4 class="fw-bold mb-5" style="color: var(--nh-blue)">NH PANEL</h4>
+        <ul class="nav flex-column">
+            <li class="nav-link active" onclick="switchTab('dash')">Dashboard</li>
+            <li class="nav-link" onclick="switchTab('config')">Site Config</li>
+            <li class="nav-link" onclick="switchTab('apps')">Applications</li>
+            <li class="nav-link" onclick="switchTab('forms')">Forms Builder</li>
+            <li class="nav-link" onclick="window.location.href='admin-appeals.html'">Ban Appeals</li>
+            <li class="nav-item mt-5 px-3 small text-muted text-uppercase">System</li>
+            <li class="nav-link text-danger" onclick="window.location.href='index.html'">Exit to Site</li>
+        </ul>
+    </nav>
 
-        <main class="col-md-10 p-5">
+    <main class="main-content">
+        
+        <div id="tab-dash">
+            <h2 class="mb-4">System Overview</h2>
+            <div class="row g-4">
+                <div class="col-md-3"><div class="content-card stat-box"><h6>Total Users</h6><h2>152</h2></div></div>
+                <div class="col-md-3"><div class="content-card stat-box"><h6>Pending Apps</h6><h2 class="text-warning">3</h2></div></div>
+                <div class="col-md-3"><div class="content-card stat-box"><h6>Active Bans</h6><h2 class="text-danger">12</h2></div></div>
+                <div class="col-md-3"><div class="content-card stat-box"><h6>Appeals</h6><h2 class="text-info">1</h2></div></div>
+            </div>
+        </div>
+
+        <div id="tab-config" style="display:none;">
+            <h2 class="mb-4">Site Configuration</h2>
+            <div class="content-card shadow">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label>Server Name</label>
+                        <input type="text" class="form-control" value="New Haven">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Theme Color</label>
+                        <input type="text" class="form-control" value="#00d4ff">
+                    </div>
+                    <div class="col-12">
+                        <label>Maintenance Mode</label>
+                        <select class="form-control">
+                            <option>Disabled</option>
+                            <option>Enabled</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-info mt-4 w-100 fw-bold">SAVE CHANGES</button>
+            </div>
+        </div>
+
+        <div id="tab-apps" style="display:none;">
+            <h2 class="mb-4">Manage Applications</h2>
+            <div class="content-card">
+                <table class="table table-dark table-hover">
+                    <thead><tr><th>User</th><th>Dept</th><th>Date</th><th>Action</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>Mez00o</td>
+                            <td>LSPD</td>
+                            <td>2026-04-10</td>
+                            <td>
+                                <button class="btn btn-sm btn-success px-3 me-2">Accept</button>
+                                <button class="btn btn-sm btn-danger px-3">Deny</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-forms" style="display:none;">
+            <h2 class="mb-4">Forms & Questions</h2>
+            <div class="content-card">
+                <h5>Add New Question</h5>
+                <div class="input-group mb-4">
+                    <input type="text" id="qInput" class="form-control" placeholder="Type question here...">
+                    <button class="btn btn-info" onclick="addQ()">Add</button>
+                </div>
+                <ul id="qList" class="list-group list-group-flush">
+                    <li class="list-group-item bg-transparent text-white border-secondary">1. Why do you want to join New Haven?</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(id) {
+            // Hide all
+            ['dash', 'config', 'apps', 'forms'].forEach(t => {
+                document.getElementById('tab-' + t).style.display = 'none';
+            });
+            // Remove active class from all links
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             
-            <div id="tab-dash">
-                <h2 class="mb-4">System Overview</h2>
-                <div class="row g-4 mb-5">
-                    <div class="col-md-3"><div class="content-card stat-box"><h6>Total Users</h6><h2>0</h2></div></div>
-                    <div class="col-md-3"><div class="content-card stat-box"><h6>Pending Apps</h6><h2 class="text-warning">3</h2></div></div>
-                    <div class="col-md-3"><div class="content-card stat-box"><h6>Active Bans</h6><h2 class="text-danger">0</h2></div></div>
-                    <div class="col-md-3"><div class="content-card stat-box"><h6>Appeals</h6><h2 class="text-info">1</h2></div></div>
-                </div>
-            </div>
-
-            <div id="tab-config" style="display:none;">
-                <h2 class="mb-4">Website Configuration</h2>
-                <div class="content-card">
-                    <h5>Main Branding</h5>
-                    <div class="row mt-4">
-                        <div class="col-md-6 mb-3">
-                            <label class="mb-2">Server Name</label>
-                            <input type="text" class="form-control" value="New Haven">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="mb-2">Theme Color (HEX)</label>
-                            <input type="text" class="form-control" value="#00d4ff">
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label class="mb-2">Announcement Banner</label>
-                            <input type="text" class="form-control" placeholder="Maintenance tonight at 10 PM...">
-                        </div>
-                    </div>
-                    <button class="btn btn-info w-100 mt-3 fw-bold" onclick="alert('Configuration Updated!')">Save Settings</button>
-                </div>
-            </div>
-
-            <div id="tab-apps" style="display:none;">
-                <h2 class="mb-4">Review Submissions</h2>
-                <div class="content-card">
-                    <table class="table table-dark table-hover align-middle">
-                        <thead><tr><th>User</th><th>Department</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td>NewPlayer_RP</td>
-                                <td>Police</td>
-                                <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-success me-1">Accept</button>
-                                    <button class="btn btn-sm btn-danger">Deny</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="tab-forms" style="display:none;">
-                <h2 class="mb-4">Forms (Questions)</h2>
-                <div class="content-card">
-                    <label class="mb-3">Select Application Form</label>
-                    <select class="form-control mb-4">
-                        <option>Staff Application</option>
-                        <option>Police Application</option>
-                        <option>EMS Application</option>
-                    </select>
-                    <hr>
-                    <div class="mb-3">
-                        <label>Add New Question</label>
-                        <input type="text" class="form-control mb-2" id="qInput">
-                        <button class="btn btn-sm btn-outline-info" onclick="addQ()">Add to Form</button>
-                    </div>
-                    <ul id="qList" class="list-group list-group-flush mt-3"></ul>
-                </div>
-            </div>
-
-        </main>
-    </div>
-</div>
-
-<script>
-    function switchTab(id) {
-        ['dash', 'config', 'apps', 'forms'].forEach(t => {
-            document.getElementById('tab-' + t).style.display = 'none';
-        });
-        document.getElementById('tab-' + id).style.display = 'block';
-    }
-    function addQ() {
-        let val = document.getElementById('qInput').value;
-        if(val) {
-            let li = document.createElement('li');
-            li.className = "list-group-item bg-transparent text-white border-secondary";
-            li.innerText = val;
-            document.getElementById('qList').appendChild(li);
-            document.getElementById('qInput').value = "";
+            // Show selected
+            document.getElementById('tab-' + id).style.display = 'block';
+            event.currentTarget.classList.add('active');
         }
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        function addQ() {
+            let input = document.getElementById('qInput');
+            if(input.value) {
+                let li = document.createElement('li');
+                li.className = "list-group-item bg-transparent text-white border-secondary";
+                li.innerText = input.value;
+                document.getElementById('qList').appendChild(li);
+                input.value = "";
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
