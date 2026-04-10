@@ -7,10 +7,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #121212; color: white; }
-        .sidebar { background-color: #1a1a1a; height: 100vh; padding: 20px; border-right: 1px solid #333; }
+        .sidebar { background-color: #1a1a1a; min-height: 100vh; padding: 20px; border-right: 1px solid #333; }
         .stat-card { background-color: #1e1e1e; border: 1px solid #333; padding: 20px; border-radius: 10px; }
-        .nav-link { color: #bbb; }
+        .nav-link { color: #bbb; cursor: pointer; }
         .nav-link:hover, .nav-link.active { color: #ff4444; }
+        .card-custom { background-color: #1e1e1e; border: 1px solid #333; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -18,59 +19,78 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block sidebar">
-            <h4 class="text-danger fw-bold mb-4">ADMIN</h4>
-            <ul class="nav flex-column">
+            <h4 class="text-danger fw-bold mb-4">ADMIN PANEL</h4>
+            <ul class="nav flex-column gap-2">
                 <li class="nav-item"><a class="nav-link active" href="#">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Player List</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Ban Management</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Logs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#forms">Forms (Questions)</a></li>
+                <li class="nav-item"><a class="nav-link" href="#manage-apps">Review Applications</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Review Appeals</a></li>
                 <li class="nav-item mt-5"><a class="nav-link text-muted" href="index.html">← Back to Site</a></li>
             </ul>
         </nav>
 
         <main class="col-md-10 p-5">
-            <h2 class="mb-4">Server Overview</h2>
-            <div class="row">
+            <div class="row mb-5">
                 <div class="col-md-4">
-                    <div class="stat-card">
-                        <h6>Total Players</h6>
-                        <h2 class="text-danger">1,240</h2>
+                    <div class="stat-card text-center">
+                        <h6>Total Users</h6>
+                        <h2 class="text-danger">0</h2>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="stat-card">
-                        <h6>Active Bans</h6>
-                        <h2 class="text-warning">42</h2>
+                    <div class="stat-card text-center">
+                        <h6>Pending Applications</h6>
+                        <h2 class="text-warning">3</h2>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="stat-card">
-                        <h6>Staff Online</h6>
-                        <h2 class="text-success">5</h2>
+                    <div class="stat-card text-center">
+                        <h6>Pending Appeals</h6>
+                        <h2 class="text-success">1</h2>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-5">
-                <h4>Recent Actions</h4>
-                <table class="table table-dark table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>Admin</th>
-                            <th>Action</th>
-                            <th>Target</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Mez00o</td>
-                            <td><span class="badge bg-danger">BAN</span></td>
-                            <td>BadPlayer123</td>
-                            <td>2 mins ago</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="manage-apps" class="mb-5">
+                <h4>Pending Applications</h4>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Type</th>
+                                <th>Submitted</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JohnDoe_RP</td>
+                                <td>LSPD Application</td>
+                                <td>1 hour ago</td>
+                                <td>
+                                    <button class="btn btn-sm btn-success">Accept</button>
+                                    <button class="btn btn-sm btn-danger">Deny</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="forms">
+                <h4>Forms Management</h4>
+                <div class="card card-custom p-4">
+                    <h6>Create New Application Question</h6>
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Enter Question (e.g. 'What is your RP background?')">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary w-100">Add to Form</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
