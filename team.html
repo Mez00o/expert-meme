@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Haven | Our Team</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --nh-blue: #00d4ff; --nh-dark: #0a0b0c; }
+        body { background-color: var(--nh-dark); color: white; font-family: 'Inter', sans-serif; }
+        .team-card { 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(0, 212, 255, 0.1); 
+            border-radius: 15px; 
+            padding: 30px; 
+            transition: 0.4s;
+            text-align: center;
+        }
+        .team-card:hover { 
+            border-color: var(--nh-blue); 
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+        }
+        .staff-img { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            border: 3px solid var(--nh-blue); margin-bottom: 15px;
+            object-fit: cover;
+        }
+        .rank-badge { font-size: 0.7rem; letter-spacing: 1px; color: var(--nh-blue); font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Management <span style="color: var(--nh-blue)">Team</span></h1>
+            <a href="index.html" class="text-muted text-decoration-none">← Return Home</a>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-3">
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Mez00o&background=00d4ff&color=000" class="staff-img">
+                    <div class="rank-badge text-uppercase">Founder</div>
+                    <h4 class="mt-2">Mez00o</h4>
+                    <p class="small text-secondary">Server Architect</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="team-card">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=00d4ff&color=000" class="staff-img">
+                    <div class="rank-badge text-uppercase">Admin</div>
+                    <h4 class="mt-2">StaffName</h4>
+                    <p class="small text-secondary">Community Management</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
