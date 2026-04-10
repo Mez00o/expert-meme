@@ -2,23 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New Haven | Admin Panel</title>
+    <title>NH Admin | Command Center</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root { --nh-blue: #00d4ff; --nh-bg: #0c0e10; }
         body { background-color: var(--nh-bg); color: #cfd4d9; font-family: 'Segoe UI', sans-serif; }
-        
         .sidebar { background: #14171a; min-height: 100vh; border-right: 1px solid #252a2f; position: fixed; width: 240px; }
         .main-content { margin-left: 240px; padding: 40px; }
-        
-        .nav-link { color: #8a9199; padding: 12px 20px; border-radius: 6px; margin-bottom: 5px; cursor: pointer; }
-        .nav-link:hover, .nav-link.active { background: rgba(0, 212, 255, 0.1); color: var(--nh-blue); }
-        
-        .content-card { background: #1a1e22; border: 1px solid #2d3339; border-radius: 10px; padding: 25px; margin-bottom: 25px; }
+        .nav-link { color: #8a9199; padding: 12px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 5px; }
+        .nav-link.active { background: rgba(0, 212, 255, 0.1); color: var(--nh-blue); }
+        .card-custom { background: #1a1e22; border: 1px solid #2d3339; border-radius: 10px; padding: 25px; margin-bottom: 25px; }
         .form-control { background: #08090a; border: 1px solid #3d444b; color: white; }
-        .form-control:focus { border-color: var(--nh-blue); box-shadow: none; color: white; }
-        
-        .stat-box { text-align: center; border-bottom: 3px solid var(--nh-blue); }
+        .form-control:focus { border-color: var(--nh-blue); background: #000; color: white; box-shadow: none; }
     </style>
 </head>
 <body>
@@ -26,113 +21,58 @@
     <nav class="sidebar p-4">
         <h4 class="fw-bold mb-5" style="color: var(--nh-blue)">NH PANEL</h4>
         <ul class="nav flex-column">
-            <li class="nav-link active" onclick="switchTab('dash')">Dashboard</li>
-            <li class="nav-link" onclick="switchTab('config')">Site Config</li>
-            <li class="nav-link" onclick="switchTab('apps')">Applications</li>
-            <li class="nav-link" onclick="switchTab('forms')">Forms Builder</li>
-            <li class="nav-link" onclick="window.location.href='admin-appeals.html'">Ban Appeals</li>
-            <li class="nav-item mt-5 px-3 small text-muted text-uppercase">System</li>
-            <li class="nav-link text-danger" onclick="window.location.href='index.html'">Exit to Site</li>
+            <li class="nav-link active" id="l-dash" onclick="switchTab('dash')">Dashboard</li>
+            <li class="nav-link" id="l-config" onclick="switchTab('config')">Site Config</li>
+            <li class="nav-link" onclick="window.location.href='admin-appeals.html'">Manage Appeals</li>
+            <li class="nav-link text-danger mt-5" onclick="window.location.href='index.html'">Exit to Site</li>
         </ul>
     </nav>
 
     <main class="main-content">
-        
         <div id="tab-dash">
-            <h2 class="mb-4">System Overview</h2>
+            <h2 class="mb-4">System Dashboard</h2>
             <div class="row g-4">
-                <div class="col-md-3"><div class="content-card stat-box"><h6>Total Users</h6><h2>152</h2></div></div>
-                <div class="col-md-3"><div class="content-card stat-box"><h6>Pending Apps</h6><h2 class="text-warning">3</h2></div></div>
-                <div class="col-md-3"><div class="content-card stat-box"><h6>Active Bans</h6><h2 class="text-danger">12</h2></div></div>
-                <div class="col-md-3"><div class="content-card stat-box"><h6>Appeals</h6><h2 class="text-info">1</h2></div></div>
+                <div class="col-md-4"><div class="card-custom text-center"><h6>Users</h6><h2 id="stat-users">152</h2></div></div>
+                <div class="col-md-4"><div class="card-custom text-center text-warning"><h6>Pending Apps</h6><h2>3</h2></div></div>
+                <div class="col-md-4"><div class="card-custom text-center text-info"><h6>Active Appeals</h6><h2>1</h2></div></div>
             </div>
         </div>
 
         <div id="tab-config" style="display:none;">
-            <h2 class="mb-4">Site Configuration</h2>
-            <div class="content-card shadow">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label>Server Name</label>
-                        <input type="text" class="form-control" value="New Haven">
-                    </div>
-                    <div class="col-md-6">
-                        <label>Theme Color</label>
-                        <input type="text" class="form-control" value="#00d4ff">
-                    </div>
-                    <div class="col-12">
-                        <label>Maintenance Mode</label>
-                        <select class="form-control">
-                            <option>Disabled</option>
-                            <option>Enabled</option>
-                        </select>
-                    </div>
+            <h2 class="mb-4">Global Configuration</h2>
+            <div class="card-custom">
+                <div class="mb-3">
+                    <label class="form-label">Server Name</label>
+                    <input type="text" id="cfg-name" class="form-control" placeholder="e.g. NEW HAVEN">
                 </div>
-                <button class="btn btn-info mt-4 w-100 fw-bold">SAVE CHANGES</button>
-            </div>
-        </div>
-
-        <div id="tab-apps" style="display:none;">
-            <h2 class="mb-4">Manage Applications</h2>
-            <div class="content-card">
-                <table class="table table-dark table-hover">
-                    <thead><tr><th>User</th><th>Dept</th><th>Date</th><th>Action</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td>Mez00o</td>
-                            <td>LSPD</td>
-                            <td>2026-04-10</td>
-                            <td>
-                                <button class="btn btn-sm btn-success px-3 me-2">Accept</button>
-                                <button class="btn btn-sm btn-danger px-3">Deny</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="tab-forms" style="display:none;">
-            <h2 class="mb-4">Forms & Questions</h2>
-            <div class="content-card">
-                <h5>Add New Question</h5>
-                <div class="input-group mb-4">
-                    <input type="text" id="qInput" class="form-control" placeholder="Type question here...">
-                    <button class="btn btn-info" onclick="addQ()">Add</button>
+                <div class="mb-3">
+                    <label class="form-label">Slogan</label>
+                    <input type="text" id="cfg-slogan" class="form-control" placeholder="e.g. Professional RP">
                 </div>
-                <ul id="qList" class="list-group list-group-flush">
-                    <li class="list-group-item bg-transparent text-white border-secondary">1. Why do you want to join New Haven?</li>
-                </ul>
+                <button class="btn btn-info w-100 fw-bold" onclick="saveConfig()">APPLY CHANGES</button>
             </div>
         </div>
-
     </main>
 
     <script>
         function switchTab(id) {
-            // Hide all
-            ['dash', 'config', 'apps', 'forms'].forEach(t => {
-                document.getElementById('tab-' + t).style.display = 'none';
-            });
-            // Remove active class from all links
+            document.getElementById('tab-dash').style.display = (id === 'dash' ? 'block' : 'none');
+            document.getElementById('tab-config').style.display = (id === 'config' ? 'block' : 'none');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
-            // Show selected
-            document.getElementById('tab-' + id).style.display = 'block';
-            event.currentTarget.classList.add('active');
+            document.getElementById('l-' + id).classList.add('active');
         }
 
-        function addQ() {
-            let input = document.getElementById('qInput');
-            if(input.value) {
-                let li = document.createElement('li');
-                li.className = "list-group-item bg-transparent text-white border-secondary";
-                li.innerText = input.value;
-                document.getElementById('qList').appendChild(li);
-                input.value = "";
-            }
+        function saveConfig() {
+            const name = document.getElementById('cfg-name').value;
+            const slogan = document.getElementById('cfg-slogan').value;
+            if(name) localStorage.setItem('nh_serverName', name.toUpperCase());
+            if(slogan) localStorage.setItem('nh_slogan', slogan);
+            alert("Settings Saved! Refresh the home page to see changes.");
         }
+
+        // Pre-fill inputs
+        document.getElementById('cfg-name').value = localStorage.getItem('nh_serverName') || "";
+        document.getElementById('cfg-slogan').value = localStorage.getItem('nh_slogan') || "";
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
