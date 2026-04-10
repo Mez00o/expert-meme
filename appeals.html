@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Haven | Ban Appeal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --nh-blue: #00d4ff; --nh-dark: #0a0b0c; }
+        body { background-color: var(--nh-dark); color: white; font-family: 'Inter', sans-serif; }
+        .ticket-box { background: #16191c; border: 1px solid #2d3238; border-radius: 12px; padding: 30px; }
+        .chat-msg { background: #252a2f; padding: 10px 15px; border-radius: 8px; margin-bottom: 10px; max-width: 80%; }
+        .staff-reply { background: rgba(0, 212, 255, 0.1); border-left: 3px solid var(--nh-blue); margin-left: auto; }
+        .form-control { background: #08090a; border: 1px solid #3d444b; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div id="appeal-form-step">
+            <h2 class="fw-bold mb-4">Ban <span style="color: var(--nh-blue)">Appeal</span></h2>
+            <div class="ticket-box">
+                <div class="mb-3">
+                    <label>Discord Username & ID</label>
+                    <input type="text" class="form-control" placeholder="User#0000">
+                </div>
+                <div class="mb-3">
+                    <label>Why were you banned?</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label>Why should we unban you?</label>
+                    <textarea class="form-control" rows="3" id="appealReason"></textarea>
+                </div>
+                <button class="btn btn-info w-100 fw-bold" onclick="submitAppeal()">Submit Appeal</button>
+            </div>
+        </div>
+
+        <div id="ticket-chat-step" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Ticket <span class="text-info">#NH-8821</span></h4>
+                <span class="badge bg-warning text-dark">Under Review</span>
+            </div>
+            <div class="ticket-box">
+                <div id="chat-history" style="height: 300px; overflow-y: auto;" class="mb-3">
+                    <div class="chat-msg"><strong>System:</strong> Appeal submitted. Awaiting staff review.</div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Type a message to staff...">
+                    <button class="btn btn-info">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitAppeal() {
+            document.getElementById('appeal-form-step').style.display = 'none';
+            document.getElementById('ticket-chat-step').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
