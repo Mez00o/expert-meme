@@ -2,77 +2,112 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>NH Admin | Command Center</title>
+    <title>NH Admin | Master Suite</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root { --nh-blue: #00d4ff; --nh-bg: #0c0e10; }
-        body { background-color: var(--nh-bg); color: #cfd4d9; font-family: 'Segoe UI', sans-serif; }
-        .sidebar { background: #14171a; min-height: 100vh; border-right: 1px solid #252a2f; position: fixed; width: 240px; }
-        .main-content { margin-left: 240px; padding: 40px; }
-        .nav-link { color: #8a9199; padding: 12px 20px; border-radius: 6px; cursor: pointer; margin-bottom: 5px; }
-        .nav-link.active { background: rgba(0, 212, 255, 0.1); color: var(--nh-blue); }
-        .card-custom { background: #1a1e22; border: 1px solid #2d3339; border-radius: 10px; padding: 25px; margin-bottom: 25px; }
-        .form-control { background: #08090a; border: 1px solid #3d444b; color: white; }
-        .form-control:focus { border-color: var(--nh-blue); background: #000; color: white; box-shadow: none; }
+        :root { --nh-blue: #00d4ff; --dark-card: #111315; }
+        body { background: #08090a; color: #a0a5a9; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { width: 260px; height: 100vh; background: var(--dark-card); position: fixed; border-right: 1px solid #222; padding: 30px 20px; }
+        .main { margin-left: 260px; padding: 40px; }
+        .nav-link { color: #666; padding: 12px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { background: rgba(0, 212, 255, 0.1); color: var(--nh-blue); }
+        .glass-card { background: var(--dark-card); border: 1px solid #222; border-radius: 12px; padding: 25px; margin-bottom: 25px; }
+        .form-control { background: #000; border: 1px solid #333; color: white; }
+        .form-control:focus { border-color: var(--nh-blue); box-shadow: none; color: white; }
     </style>
 </head>
 <body>
 
-    <nav class="sidebar p-4">
-        <h4 class="fw-bold mb-5" style="color: var(--nh-blue)">NH PANEL</h4>
-        <ul class="nav flex-column">
-            <li class="nav-link active" id="l-dash" onclick="switchTab('dash')">Dashboard</li>
-            <li class="nav-link" id="l-config" onclick="switchTab('config')">Site Config</li>
-            <li class="nav-link" onclick="window.location.href='admin-appeals.html'">Manage Appeals</li>
-            <li class="nav-link text-danger mt-5" onclick="window.location.href='index.html'">Exit to Site</li>
-        </ul>
-    </nav>
+    <div class="sidebar">
+        <h4 class="text-white fw-bold mb-5">NH <span style="color:var(--nh-blue)">ADMIN</span></h4>
+        <div class="nav flex-column">
+            <div class="nav-link active" onclick="tab('settings')">Server Settings</div>
+            <div class="nav-link" onclick="tab('apps')">Review Applications</div>
+            <div class="nav-link" onclick="location.href='admin-appeals.html'">Ticket Center</div>
+            <div class="nav-link mt-5 text-danger fw-bold" onclick="location.href='index.html'">View Public Site</div>
+        </div>
+    </div>
 
-    <main class="main-content">
-        <div id="tab-dash">
-            <h2 class="mb-4">System Dashboard</h2>
-            <div class="row g-4">
-                <div class="col-md-4"><div class="card-custom text-center"><h6>Users</h6><h2 id="stat-users">152</h2></div></div>
-                <div class="col-md-4"><div class="card-custom text-center text-warning"><h6>Pending Apps</h6><h2>3</h2></div></div>
-                <div class="col-md-4"><div class="card-custom text-center text-info"><h6>Active Appeals</h6><h2>1</h2></div></div>
+    <div class="main">
+        <div id="tab-settings">
+            <h2 class="text-white mb-4">Master Configuration</h2>
+            <div class="glass-card">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="mb-2 small fw-bold text-uppercase">Server Display Name</label>
+                        <input type="text" id="in-name" class="form-control" placeholder="New Haven">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="mb-2 small fw-bold text-uppercase">Slogan / Subtitle</label>
+                        <input type="text" id="in-slogan" class="form-control" placeholder="Redefining Roleplay">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="mb-2 small fw-bold text-uppercase">Server Status</label>
+                        <select class="form-control" id="in-status">
+                            <option value="online">Online / Public</option>
+                            <option value="maintenance">Maintenance Mode</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-info w-100 mt-4 py-2 fw-bold" onclick="saveMaster()">SAVE GLOBAL CONFIG</button>
             </div>
         </div>
 
-        <div id="tab-config" style="display:none;">
-            <h2 class="mb-4">Global Configuration</h2>
-            <div class="card-custom">
-                <div class="mb-3">
-                    <label class="form-label">Server Name</label>
-                    <input type="text" id="cfg-name" class="form-control" placeholder="e.g. NEW HAVEN">
+        <div id="tab-apps" style="display:none;">
+            <h2 class="text-white mb-4">Pending Submissions</h2>
+            <div id="app-container">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Slogan</label>
-                    <input type="text" id="cfg-slogan" class="form-control" placeholder="e.g. Professional RP">
-                </div>
-                <button class="btn btn-info w-100 fw-bold" onclick="saveConfig()">APPLY CHANGES</button>
-            </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        function switchTab(id) {
-            document.getElementById('tab-dash').style.display = (id === 'dash' ? 'block' : 'none');
-            document.getElementById('tab-config').style.display = (id === 'config' ? 'block' : 'none');
+        function tab(id) {
+            document.getElementById('tab-settings').style.display = (id === 'settings' ? 'block' : 'none');
+            document.getElementById('tab-apps').style.display = (id === 'apps' ? 'block' : 'none');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.getElementById('l-' + id).classList.add('active');
+            event.target.classList.add('active');
+            if(id === 'apps') loadApps();
         }
 
-        function saveConfig() {
-            const name = document.getElementById('cfg-name').value;
-            const slogan = document.getElementById('cfg-slogan').value;
-            if(name) localStorage.setItem('nh_serverName', name.toUpperCase());
-            if(slogan) localStorage.setItem('nh_slogan', slogan);
-            alert("Settings Saved! Refresh the home page to see changes.");
+        function saveMaster() {
+            localStorage.setItem('nh_name', document.getElementById('in-name').value);
+            localStorage.setItem('nh_slogan', document.getElementById('in-slogan').value);
+            localStorage.setItem('nh_status', document.getElementById('in-status').value);
+            alert("Global Configuration Updated!");
         }
 
-        // Pre-fill inputs
-        document.getElementById('cfg-name').value = localStorage.getItem('nh_serverName') || "";
-        document.getElementById('cfg-slogan').value = localStorage.getItem('nh_slogan') || "";
+        function loadApps() {
+            const apps = JSON.parse(localStorage.getItem('nh_user_apps') || '[]');
+            const container = document.getElementById('app-container');
+            if(apps.length === 0) {
+                container.innerHTML = '<div class="glass-card text-center">No pending applications found.</div>';
+                return;
+            }
+            container.innerHTML = apps.map((a, i) => `
+                <div class="glass-card d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="text-white mb-1">${a.user}</h5>
+                        <small class="text-info">${a.type}</small>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-success me-2" onclick="actionApp(${i}, 'Accepted')">Accept</button>
+                        <button class="btn btn-sm btn-danger" onclick="actionApp(${i}, 'Denied')">Deny</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function actionApp(index, status) {
+            let apps = JSON.parse(localStorage.getItem('nh_user_apps'));
+            apps[index].status = status;
+            localStorage.setItem('nh_user_apps', JSON.stringify(apps));
+            alert("User has been " + status);
+            loadApps();
+        }
+
+        // Initialize values
+        document.getElementById('in-name').value = localStorage.getItem('nh_name') || "NEW HAVEN";
+        document.getElementById('in-slogan').value = localStorage.getItem('nh_slogan') || "";
     </script>
 </body>
 </html>
